@@ -1,5 +1,5 @@
-import  { useState, type JSX } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, type JSX } from "react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 
 // Base64 character set
 const base64Chars =
@@ -63,7 +63,7 @@ export default function Base64Visualizer(): JSX.Element {
         ]);
         setOutput(decoded);
       }
-    } catch (error) {
+    } catch {
       setOutput("⚠️ Invalid input!");
       setSteps([]);
     }
@@ -115,7 +115,7 @@ export default function Base64Visualizer(): JSX.Element {
   };
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -126,13 +126,13 @@ export default function Base64Visualizer(): JSX.Element {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 12,
         stiffness: 200,
       },
@@ -151,7 +151,7 @@ export default function Base64Visualizer(): JSX.Element {
       scale: 1,
       transition: {
         delay: i * 0.3,
-        type: "spring",
+        type: "spring" as const,
         damping: 10,
         stiffness: 100,
       },
@@ -164,7 +164,7 @@ export default function Base64Visualizer(): JSX.Element {
         duration: 0.2,
       },
     },
-  };
+  } satisfies Variants;
 
   return (
     <div className="min-h-screen w-screen bg-gradient-to-br from-slate-900 via-purple-900/50 to-slate-900 overflow-hidden">
